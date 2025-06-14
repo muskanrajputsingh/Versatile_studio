@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 
-# Ensure the sanity CLI from node_modules is used
-./node_modules/.bin/sanity build
+# Navigate to the correct folder
+cd "$(dirname "$0")"
+
+# Install dependencies
+npm install
+
+# Build the Sanity Studio
+npx sanity build
