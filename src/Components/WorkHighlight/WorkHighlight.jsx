@@ -1,66 +1,30 @@
 import { useState, useRef, useEffect } from "react"
 import "./WorkHighlight.css"
+import { client } from '../../sanity/SanityClient';
+import { workHighlightQuery} from '../../queries';
 
 export default function WorkHighlight() {
   const [hoveredCard, setHoveredCard] = useState(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [workHighlight,setWorkHighlight]=useState([]);
   const buttonRef = useRef(null)
 
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth <= 991)
     }
-
     checkIfMobile()
     window.addEventListener('resize', checkIfMobile)
 
     return () => {
       window.removeEventListener('resize', checkIfMobile)
     }
-  }, [])
+   }, [])
 
-  const projects = [
-    {
-      id: 1,
-      categories: ['UI/UX', 'Webflow Dev', 'Jetboost', 'Memberstack'],
-      title: 'Iconstica · Icon Library',
-      description: 'Iconstica is our latest venture, created for designers and developers, offering an extensive range of premium and free icons. Dive into our library to find minimalist, unique, and consistent icons.',
-      author: {
-        name: 'Salim Lunat',
-        role: 'Founder - Iconstica',
-        avatar: 'https://cdn.prod.website-files.com/6333c43995273d509e9a2a16/664b047ed8bcc371c827fd62_avatar-07.avif'
-      },
-      image: 'https://cdn.prod.website-files.com/6333c43995273d509e9a2a16/664b03c5e4f48db0f42c6496_work-05.avif',
-      link: 'https://www.iconstica.com/',
-      icon: 'https://cdn.prod.website-files.com/6333c43995273d509e9a2a16/66ff83abd2f1fff7c5f468a1_mice.svg',
-      hasTestimonial: true
-    },
-    {
-      id: 2,
-      categories: ['UI/UX Design', 'Webflow Development', 'Animation'],
-      title: 'E54 · Marketing Efficiency Platform',
-      description: 'Salim and his team were impressive on our project. Not only their execution was at the level of top agencies (previously worked with IDG baunfire), but they also brought their experience, instinct, and taste to the table to completely go overboard and offer a radical vision.',
-      author: {
-        name: 'Romain T',
-        role: 'Co-founder - e54.io',
-        avatar: 'https://cdn.prod.website-files.com/6333c43995273d509e9a2a16/64f5a32eb3bd2af3ca901ea8_avatar-06.avif'
-      },
-      image: 'https://cdn.prod.website-files.com/6333c43995273d509e9a2a16/64f5af87b3bd2af3ca9e6f0b_work-04.avif',
-      link: 'https://www.e54.io/',
-      icon: 'https://cdn.prod.website-files.com/6333c43995273d509e9a2a16/66ff854d052ef82c86b97fb2_quote.svg',
-      hasTestimonial: true
-    },
-    {
-      id: 3,
-      categories: ['UI/UX Design', 'Webflow Development', 'Animation'],
-      title: 'Puremium · High-Intent Users Generation',
-      description: 'PUREMIUM specializes in generating high-intent users for businesses through targeted marketing services. We crafted this website using Figma for design, Webflow for development, and added captivating animations with Lottie.',
-      image: 'https://cdn.prod.website-files.com/6333c43995273d509e9a2a16/6527b2027be2a14ddfad179a_puremium.avif',
-      link: 'https://www.puremium.com/',
-      icon: 'https://cdn.prod.website-files.com/6333c43995273d509e9a2a16/66ff8652c635ecb1114cfdcf_info.svg',
-      hasTestimonial: false
-    }
-  ]
+   //useEffect for sanity
+   useEffect(() => {
+    client.fetch(workHighlightQuery).then((data) => setWorkHighlight(data));
+  }, []);
 
   const handleMouseMove = (e) => {
     if (!buttonRef.current || isMobile) return
@@ -92,19 +56,19 @@ export default function WorkHighlight() {
           <h2>Work highlights</h2>
         </div>
 
-        {projects.map((project, index) => (
+        {workHighlight.map((project, index) => (
           <div
-            key={project.id}
-            className={`case-item-wrap ${index === projects.length - 1 ? "last" : ""}`}
-            onMouseEnter={() => setHoveredCard(project.id)}
+            key={project._id}
+            className={`case-item-wrap ${index === workHighlight.length - 1 ? "last" : ""}`}
+            onMouseEnter={() => setHoveredCard(project._id)}
             onMouseLeave={() => setHoveredCard(null)}
           >
             <div className={`case-item ${index === 1 ? "two" : index === 2 ? "three" : ""}`}>
               <div className="case-info">
                 <div className="category-link-wrap">
-                  {project.categories.map((category, idx) => (
+                  {project.tags.map((tag, idx) => (
                     <p key={idx} className="category-link">
-                      {category}
+                      {tag}
                     </p>
                   ))}
                 </div>
@@ -113,7 +77,7 @@ export default function WorkHighlight() {
 
                 <div className="case-item-button">
                   <a 
-                    href={project.link} 
+                    href={project.liveLink} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="button-white-sm"
@@ -126,43 +90,45 @@ export default function WorkHighlight() {
 
                 <div className="case-review-item">
                   <img 
-                    src={project.icon} 
+                    src={project.projectIcon} 
                     loading="lazy" 
                     width="Auto" 
                     alt="" 
                     className="case-review-icon"
                     aria-hidden="true"
                   />
-                  <p className="case-review-content">{project.description}</p>
-                  {project.author && (
+                  <p className="case-review-content">{project.feedback}</p>
+                 
+                  {project.clientImageUrl && project.clientName && project.clientTitle && (
                     <div className="case-review-author">
                       <img
-                        src={project.author.avatar}
+                        src={project.clientImageUrl}
                         loading="lazy"
-                        alt={project.author.name}
+                        alt={project.clientName}
                         className="case-review-author-image"
                         width="40"
                         height="40"
                       />
                       <div>
-                        <div className="case-review-author-name">{project.author.name}</div>
-                        <p className="case-review-author-info">{project.author.role}</p>
+                        <div className="case-review-author-name">{project.clientName}</div>
+                        <p className="case-review-author-info">{project.clientTitle}</p>
                       </div>
                     </div>
                   )}
+  
                 </div>
               </div>
 
               <div className="case-image-wrapper">
                 <a 
-                  href={project.link} 
+                  href={project.liveLink} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="case-image-wrap"
                   aria-label={`View ${project.title} project`}
                 >
                   <img 
-                    src={project.image} 
+                    src={project.projectImageUrl} 
                     loading="lazy" 
                     alt={project.title}
                     className="case-image"
