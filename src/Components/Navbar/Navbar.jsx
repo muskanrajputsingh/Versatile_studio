@@ -1,12 +1,24 @@
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
 import './Navbar.css'
+import { client } from '../../sanity/SanityClient';
+import {dropdownServiceQuery} from '../../queries';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [dropdown, setDropdown] = useState(null);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
     }
+
+    useEffect(() => {
+      client.fetch(dropdownServiceQuery)
+        .then(data => setDropdown(data))
+        .catch(err => console.error('Sanity fetch error:', err));
+    }, []);
+  
+    if (!dropdown) return null;
 
     return (
       <nav className="relative top-0 left-0 right-0 z-50 px-6 lg:px-16 py-4 pointer-events-auto">
@@ -15,15 +27,15 @@ export default function Navbar() {
           <div className="flex items-center gap-8">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                <span className="text-black font-bold text-lg">V</span>
-              </div>
-              <span className="text-white font-semibold text-xl">Versatile Studio</span>
+              <img
+                src="/logo.jpeg"
+                alt="Versatile Studio Logo"
+                className="w-20 h-20 object-contain"
+              />
             </div>
-  
             {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-8">
-              <a href="#" className="text-white hover:text-purple-300 transition-colors font-medium">
+              <a href="/" className="text-white hover:text-purple-300 transition-colors font-medium">
                 Home
               </a>
               <div className="relative group">
@@ -31,17 +43,16 @@ export default function Navbar() {
                   href="#"
                   className="text-white hover:text-purple-300 transition-colors font-medium flex items-center gap-1"
                 >
-                  Services
+                 {dropdown.title}
                   <svg className="w-4 h-4 transform group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </a>
                 {/* Services Dropdown */}
                 <div className="dropdown-menu">
-                  <a href="#" className="dropdown-item">Web Development</a>
-                  <a href="#" className="dropdown-item">UI/UX Design</a>
-                  <a href="#" className="dropdown-item">Mobile Apps</a>
-                  <a href="#" className="dropdown-item">Consulting</a>
+                {dropdown.items.map((item, index) => (
+                  <a key={index} href={item.url} className="dropdown-item">{item.label}</a>
+                ))}
                 </div>
               </div>
               <div className="relative group">
@@ -63,16 +74,16 @@ export default function Navbar() {
                 </div>
               </div>
               <a href="#" className="text-white hover:text-purple-300 transition-colors font-medium">
-                Webflow Templates
+                Versatile Studio Templates
               </a>
             </div>
           </div>
   
           {/* Desktop Contact Us Button */}
           <div className="hidden lg:block">
-            <button className="contact-button">
+            <Link to="/contact"><button className="contact-button">
               Contact Us
-            </button>
+            </button></Link>
           </div>
 
           {/* Mobile Menu Button */}

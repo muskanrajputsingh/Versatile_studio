@@ -24,3 +24,11 @@ export const servicesQuery = `*[_type == "services"] | order(_createdAt asc){
     clientImageUrl
   }`;
   
+// queries/dropdownServiceQuery.js
+export const dropdownServiceQuery = `*[_type == "dropdownService"][0]{
+  title,
+  items[]{
+    label,
+    url
+  }
+}`;

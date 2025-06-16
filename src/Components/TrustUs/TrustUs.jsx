@@ -68,8 +68,8 @@ const TrustUs = () => {
               </div>
             </div>
             <div className="feature-item-split-title-wrap">
-              <h2 className="feature-item-split-title">Webflow certified partner</h2>
-              <p className="no-margin">We are Webflow experts and part of the exclusive Webflow Template Services program, our certification ensures your project is in trusted hands.</p>
+              <h2 className="feature-item-split-title">Versatile Studio certified partner</h2>
+              <p className="no-margin">We are Versatile Studio experts and part of the exclusive Versatile Studio Template Services program, our certification ensures your project is in trusted hands.</p>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ const TrustUs = () => {
               </div>
             </div>
             <div className="feature-item-split-title-wrap">
-              <h2 className="feature-item-split-title">Created templates on Webflow</h2>
+              <h2 className="feature-item-split-title">Created templates on Versatile Studio</h2>
               <p className="no-margin">With a portfolio of 260+ templates, we focus on delivering high-quality designs that guarantee seamless functionality and an outstanding user experience.</p>
             </div>
           </div>
@@ -99,7 +99,7 @@ const TrustUs = () => {
             </div>
             <div className="feature-item-split-title-wrap">
               <h2 className="feature-item-split-title">Bootstrap themes partner</h2>
-              <p className="no-margin">As one of 26 global Bootstrap partners, we've sold over 4,800 themes, streamlining workflows for thousands of developers worldwide.</p>
+              <p className="no-margin">As one of 26 global Bootstrap partners, we've sold over 4,800 themes, streamlining Versatile Studio for thousands of developers worldwide.</p>
             </div>
           </div>
         </div>

@@ -27,8 +27,8 @@
     margin: 0 auto;
     padding: 0 40px;
     display: grid;
-    grid-template-columns: 1.5fr repeat(5, 1fr);
-    gap: 40px;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap:40px;
   }
   
   /* Brand Section */

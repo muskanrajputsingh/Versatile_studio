@@ -12,7 +12,7 @@ const WhoWeAreSection = () => {
           className="text-3xl lg:text-3xl font-medium text-white mb-8 leading-tight"
           style={{ fontFamily: "Ubuntu, sans-serif" }}
         >
-          We're a team of Webflow developers and UI/UX designers dedicated to creating high-performance websites
+          We're a team of Versatile Studio developers and UI/UX designers dedicated to creating high-performance websites
           that leave a lasting "WOW" factor.
         </h2>
 
@@ -22,7 +22,7 @@ const WhoWeAreSection = () => {
             <div className="w-7 h-7 border-2 border-slate-400 rounded-full flex items-center justify-center flex-shrink-0 bg-transparent">
               <Check className="w-4 h-4 text-slate-400" />
             </div>
-            <p className="text-[1.1rem] text-slate-300">Partner with certified Webflow team.</p>
+            <p className="text-[1.1rem] text-slate-300">Partner with certified Versatile Studio team.</p>
           </div>
 
           <div className="flex items-center gap-4">

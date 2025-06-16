@@ -32,8 +32,8 @@ export default function Services() {
               <img 
                 src={service.badgeIconUrl}
                 alt="Badge Icon"
-                width="24"
-                height="24"
+                width="22"
+                height="20"
               />
                <span>{service.badgeText}</span>
                </div>

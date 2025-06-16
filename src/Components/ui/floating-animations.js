@@ -4,7 +4,7 @@ export const floatingAnimationsCSS = `
   
   @keyframes float-down {
     0% { 
-      transform: translateY(-300px) translateX(0px);
+      transform: translateY(-20px) translateX(0px);
       opacity: 0;
     }
     10% {
@@ -152,7 +152,7 @@ export const floatingAnimationsCSS = `
   
   .animate-solution-3 {
     animation: float-solution-center 8s linear infinite;
-    animation-delay: 4s;
+    animation-delay: 6s;
     animation-fill-mode: both;
     opacity: 0;
     transform: translateY(40px);

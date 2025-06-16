@@ -1,16 +1,30 @@
 import React from 'react';
+import { useState,useEffect } from "react"
 import './Footer.css';
-import { FaLinkedinIn, FaInstagram, FaDribbble, FaTwitter } from 'react-icons/fa';
+import { FaLinkedinIn, FaInstagram, FaDribbble, FaTwitter} from 'react-icons/fa';
 import { SiWebflow } from 'react-icons/si';
 import { HiArrowUpRight } from 'react-icons/hi2';
+import { client } from '../../sanity/SanityClient';
+import { dropdownServiceQuery } from '../../queries';
+
 
 const Footer = () => {
+ const [dropdown, setDropdown] = useState(null);
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   };
+
+  useEffect(() => {
+        client.fetch(dropdownServiceQuery)
+          .then(data => setDropdown(data))
+          .catch(err => console.error('Sanity fetch error:', err));
+      }, []);
+    
+      if (!dropdown) return null;
 
   return (
     <>
@@ -33,7 +47,7 @@ const Footer = () => {
               <span className="brand-name">Versatile Studio</span>
             </div>
             <p className="footer-description">
-              Web development agency specializes in Webflow Development and UI/UX Design.
+              Web development agency specializes in Versatile Studio Development and UI/UX Design.
             </p>
             <a href="https://webflow.com/@webestica-agency" target="_blank" rel="noopener noreferrer" className="cf-badge sm">
               <img 
@@ -41,7 +55,7 @@ const Footer = () => {
                 alt="Webflow badge white" 
                 className="cf-badge-icon sm"
               />
-              <div>Certified Webflow Partner</div>
+              <div>A Unit Of The RD Group Of Industries</div>
             </a>
             <div className="social-links">
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
@@ -64,25 +78,14 @@ const Footer = () => {
 
           {/* Services Column */}
           <div className="footer-column">
-            <h3 className="footer-heading">Services</h3>
+            <h3 className="footer-heading">{dropdown.title}</h3>
             <nav className="footer-nav">
-              <a href="/webflow-development">Webflow Development</a>
-              <a href="/ui-ux-design">UI/UX Design</a>
-              <a href="/webflow-template-customization">Webflow Template Customization</a>
+            {dropdown.items.map((item, index) => (
+              <a key={index} href={item.url}>{item.label}</a>
+            ))}
             </nav>
           </div>
 
-          {/* Explore Column */}
-          <div className="footer-column">
-            <h3 className="footer-heading">Explore</h3>
-            <nav className="footer-nav">
-              <a href="/webflow-templates">Webflow Templates</a>
-              <a href="/framer-templates">Framer Templates</a>
-              <a href="/bootstrap-themes">Bootstrap Themes</a>
-              <a href="/premium-figma-templates">Premium Figma Templates</a>
-              <a href="/reviews">Reviews</a>
-            </nav>
-          </div>
 
           {/* Resources Column */}
           <div className="footer-column">
@@ -98,20 +101,7 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Help Column */}
-          <div className="footer-column">
-            <h3 className="footer-heading">Help</h3>
-            <nav className="footer-nav">
-              <a href="/contact">Contact Us</a>
-              <a href="/webflow-templates-support">Webflow Templates Support</a>
-              <a href="/bootstrap-themes-support" className="footer-link">
-                Bootstrap Themes Support
-                <HiArrowUpRight className="external-link-icon" />
-              </a>
-              <a href="/request-template">Request Template</a>
-            </nav>
-          </div>
-
+        
           {/* Products Column */}
           <div className="footer-column">
             <h3 className="footer-heading">Products</h3>
