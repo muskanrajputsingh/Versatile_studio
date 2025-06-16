@@ -43,8 +43,11 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="footer-brand">
             <div className="brand-logo">
-              <div className="logo-circle">V</div>
-              <span className="brand-name">Versatile Studio</span>
+            <img
+                src="/logo3.png"
+                alt="Versatile Studio Logo"
+                className="w-30 h-30 object-contain"
+              />
             </div>
             <p className="footer-description">
               Web development agency specializes in Versatile Studio Development and UI/UX Design.
@@ -93,7 +96,6 @@ const Footer = () => {
             <nav className="footer-nav">
               <a href="/webflow-cloneables">Webflow Cloneables</a>
               <a href="/figma-cloneables">Figma Cloneables</a>
-              <a href="/blog">Blog</a>
               <a href="/flowstica-library" className="footer-link">
                 Flowstica Library
                 <HiArrowUpRight className="external-link-icon" />
@@ -131,8 +133,8 @@ const Footer = () => {
             </div>
             
             <div className="footer-made-with">
-              <span>Made with ❤️ in</span>
-              <SiWebflow className="webflow-icon" />
+              <span>Made with ❤️ in </span><img src='/logo3.png' className='w-20 h-40'/>
+             
             </div>
             <button onClick={scrollToTop} className="back-to-top">
               Back to top ↑

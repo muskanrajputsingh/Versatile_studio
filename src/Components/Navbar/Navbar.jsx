@@ -28,9 +28,9 @@ export default function Navbar() {
             {/* Logo */}
             <div className="flex items-center gap-2">
               <img
-                src="/logo.jpeg"
+                src="/logo3.png"
                 alt="Versatile Studio Logo"
-                className="w-20 h-20 object-contain"
+                className="w-25 h-25 object-contain"
               />
             </div>
             {/* Desktop Navigation Links */}
